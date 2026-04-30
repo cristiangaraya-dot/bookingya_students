@@ -1,0 +1,15 @@
+package com.project.bookingya.bdd.runners;
+
+import io.cucumber.junit.CucumberOptions;
+import net.serenitybdd.cucumber.CucumberWithSerenity;
+import org.junit.runner.RunWith;
+
+@RunWith(CucumberWithSerenity.class)
+@CucumberOptions(
+        //objectFactory = cucumber.runtime.SerenityObjectFactory.class,
+        features = "src/test/resources/Features/Reservation.feature",
+        glue = {"com.project.bookingya.bdd.stepdefinitions"},
+        plugin = {"pretty"}
+)
+public class ReservationCucumberTest {
+}
