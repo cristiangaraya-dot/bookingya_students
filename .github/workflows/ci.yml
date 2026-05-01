@@ -1,4 +1,4 @@
-name: Proyect Bookingya Serenity
+name: Java CI with Maven & Serenity
 
 on:
   push:
