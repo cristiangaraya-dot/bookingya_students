@@ -19,12 +19,15 @@ jobs:
           distribution: temurin
           java-version: 17
 
-      - name: Ejecutar pruebas + generar reporte
+      - name: Run tests
         run: mvn clean verify
 
-      - name: Subir reporte Serenity
+      - name: Generate Serenity report
+        run: mvn serenity:aggregate
+
+      - name: Upload Serenity report
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: serenity-report
-          path: target/site/serenity/
+          path: target/site/serenity
