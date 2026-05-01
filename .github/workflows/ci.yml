@@ -9,24 +9,16 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
-    services:
-      postgres:
-        image: postgres:15 
-        env:
-          POSTGRES_DB: bookingya 
-          POSTGRES_USER: postgres    
-          POSTGRES_PASSWORD: 1
-        ports:
-          - 5432:5432
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
-      - name: Checkout del código
+      - name: Checkout del codigo
         uses: actions/checkout@v4
 
       - name: Configurar JDK 21
@@ -36,12 +28,7 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-    
-      - name: Ejecutar pruebas y compilar
-        env:
-          DB_URL: jdbc:postgresql://127.0.0.1:5432/bookingya 
-          DB_USERNAME: postgres
-          DB_PASSWORD: 1
+      - name: Ejecutar pruebas y generar reporte Serenity
         run: mvn -B clean verify
 
       - name: Subir Reporte Serenity
@@ -50,3 +37,28 @@ jobs:
         with:
           name: reporte-serenity-bookingya
           path: target/site/serenity/
+          if-no-files-found: error
+
+      - name: Configurar GitHub Pages
+        if: github.event_name == 'push'
+        uses: actions/configure-pages@v5
+
+      - name: Preparar reporte para GitHub Pages
+        if: github.event_name == 'push'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: target/site/serenity/
+
+      - name: Publicar reporte Serenity en GitHub Pages
+        if: github.event_name == 'push'
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      - name: Resumen del reporte
+        if: always()
+        run: |
+          echo "## Reporte Serenity" >> $GITHUB_STEP_SUMMARY
+          echo "- Artifact: reporte-serenity-bookingya" >> $GITHUB_STEP_SUMMARY
+          if [ "${{ steps.deployment.outputs.page_url }}" != "" ]; then
+            echo "- GitHub Pages: ${{ steps.deployment.outputs.page_url }}" >> $GITHUB_STEP_SUMMARY
+          fi
