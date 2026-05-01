@@ -12,10 +12,10 @@ jobs:
 
     services:
       postgres:
-        image: postgres:15
+        image: postgres:15 
         env:
-          POSTGRES_DB: bookingya
-          POSTGRES_USER: postgres
+          POSTGRES_DB: bookingya 
+          POSTGRES_USER: postgres    
           POSTGRES_PASSWORD: 1
         ports:
           - 5432:5432
@@ -36,10 +36,10 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-
+    
       - name: Ejecutar pruebas y compilar
         env:
-          DB_URL: jdbc:postgresql://127.0.0.1:5432/bookingya
+          DB_URL: jdbc:postgresql://127.0.0.1:5432/bookingya 
           DB_USERNAME: postgres
           DB_PASSWORD: 1
         run: mvn -B clean verify
