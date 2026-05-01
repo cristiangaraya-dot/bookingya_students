@@ -7,7 +7,7 @@ import org.junit.runner.RunWith;
 @RunWith(CucumberWithSerenity.class)
 @CucumberOptions(
         //objectFactory = cucumber.runtime.SerenityObjectFactory.class,
-        features = "src/test/resources/features/Reservation.feature",
+        features = "src/test/resources/features",
         glue = {"com.project.bookingya.bdd.stepdefinitions"},
         plugin = {"pretty"}
 )
