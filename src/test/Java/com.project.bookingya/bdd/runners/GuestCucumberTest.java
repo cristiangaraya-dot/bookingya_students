@@ -9,7 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 @RunWith(CucumberWithSerenity.class)
 @CucumberOptions(
         //objectFactory = cucumber.runtime.SerenityObjectFactory.class,
-        features = "src/test/resources/Features/Guest.feature",
+        features = "src/test/resources/features/Guest.feature",
         glue = {"com.project.bookingya.bdd.stepdefinitions"},
         plugin = {"pretty"}
 )
