@@ -10,6 +10,6 @@ import org.junit.runner.RunWith;
         glue = {"com.project.bookingya.bdd.stepdefinitions"},
         plugin = {"pretty"}
 )
-public class RoomCucumberSteps {
+public class RoomCucumberTest {
 
 }

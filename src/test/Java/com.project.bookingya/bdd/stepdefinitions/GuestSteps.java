@@ -9,6 +9,7 @@ import io.cucumber.java.en.When;
 import org.jspecify.annotations.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Map;
@@ -17,6 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest
+//@Component
 public class GuestSteps {
     @Autowired
     private GuestService servicioHuesped ;
@@ -32,7 +34,7 @@ public class GuestSteps {
         }
     }
     @When("I create a guest with the following details:")
-    public void CreateGuest (io.cucumber.datatable.@NonNull DataTable dataTable){
+    public void CreateGuest (io.cucumber.datatable. DataTable dataTable){
         List<Map<String, String>> rows = dataTable.asMaps();
         Map<String, String> row = rows.get(0);
         GuestDto ObjGuest = new GuestDto();

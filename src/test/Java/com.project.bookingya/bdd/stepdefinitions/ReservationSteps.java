@@ -24,7 +24,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @SpringBootTest
 public class ReservationSteps {
     @Autowired
-    //Inicialización variables servicios.
     private GuestService servicioHuesped;
     @Autowired
     private RoomService servicioHabitacion;
